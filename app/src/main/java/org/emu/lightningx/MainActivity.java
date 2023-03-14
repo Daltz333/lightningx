@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.emu.lightningx.services.DatabaseService;
 import org.emu.lightningx.ui.main.SectionsPagerAdapter;
 import org.emu.lightningx.databinding.ActivityMainBinding;
 
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+
+        DatabaseService.initDatabase(this.getBaseContext());
+
         /*ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;

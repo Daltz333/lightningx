@@ -7,7 +7,7 @@ public class ProfessorModel {
 
     private int uuid = -1;
 
-    private ArrayList<ClassModel> classes;
+    private final ArrayList<ClassModel> classes;
 
     /**
      * Get the professor UUID

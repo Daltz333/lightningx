@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class StudentRetrieveService {
     public static StudentRetrieveService instance = new StudentRetrieveService();
 
-    private ArrayList<StudentModel> students = new ArrayList<>();
+    private final ArrayList<StudentModel> students = new ArrayList<>();
 
     private StudentRetrieveService() {
         StudentModel student1 = new StudentModel("Jacob", "E0000001", R.drawable.theboy);

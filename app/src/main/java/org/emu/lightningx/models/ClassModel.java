@@ -8,7 +8,7 @@ public class ClassModel {
 
     // We should always "lazy" load objects that are potentially heavy
     // as this can impact application startup times
-    private ArrayList<StudentModel> students;
+    private final ArrayList<StudentModel> students;
 
     public ClassModel() {
         students = new ArrayList<StudentModel>();

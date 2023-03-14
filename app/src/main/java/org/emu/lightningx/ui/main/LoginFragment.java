@@ -1,15 +1,26 @@
 package org.emu.lightningx.ui.main;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
+
+import androidx.appcompat.widget.Toolbar;
 
 import org.emu.lightningx.R;
+import org.emu.lightningx.models.ProfessorModel;
+import org.emu.lightningx.services.DatabaseService;
+import org.emu.lightningx.services.GlobalStateService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,11 +76,76 @@ public class LoginFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
         Button loginButton = root.findViewById(R.id.goButton);
+        EditText uuid = root.findViewById(R.id.uuidEntry);
 
         loginButton.setOnClickListener(args -> {
+            ProfessorModel professor = null;
 
+            // grab uuid, set id to -1 if no id was entered
+            // TODO, update textfield above login box stating to enter a valid UUID
+            int realUuid = -1;
+
+            try {
+                realUuid = Integer.parseInt(uuid.getText().toString());
+            } catch (NumberFormatException ex) {
+                Log.println(Log.INFO, this.getClass().getSimpleName(), "User entered an invalid UUID!");
+            }
+
+            if (DatabaseService.getInstance().doesUserExist(realUuid)) {
+                professor = new ProfessorModel();
+                userLoggedIn(professor, inflater, root);
+            } else {
+                View popupView = inflater.inflate(R.layout.fragment_account_create, container, false);
+                PopupWindow window = new PopupWindow(popupView,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                window.showAtLocation(root, Gravity.CENTER, 0, 0);
+
+                window.setOnDismissListener(() -> {
+                    EditText newUuidTextEntry = window.getContentView().findViewById(R.id.accountCreationUuid);
+                    EditText newNameTextEntry = window.getContentView().findViewById(R.id.accountCreationName);
+
+                    int newUuid = -1;
+                    String newName = "";
+                    try {
+                        newUuid = Integer.parseInt(newUuidTextEntry.getText().toString());
+                        newName = newNameTextEntry.getText().toString();
+
+                    } catch (NumberFormatException ex) {
+                        Log.println(Log.INFO, getClass().getSimpleName(), "Failed to parse new account creation UUID");
+                        return;
+                    }
+
+                    ProfessorModel newProfessor = new ProfessorModel();
+                    newProfessor.setUuid(newUuid);
+                    newProfessor.setName(newName);
+
+                    userLoggedIn(newProfessor, inflater, root);
+                });
+
+                return;
+            }
         });
 
         return root;
+    }
+
+    @SuppressLint("ResourceType")
+    public void userLoggedIn(ProfessorModel professor, LayoutInflater inflater, View root) {
+        GlobalStateService.getInstance().setSelectedProfessor(professor);
+
+        View root_view = inflater.inflate(R.layout.fragment_root_view, null, false);
+
+        Activity activity = getActivity();
+
+        if (activity != null) {
+            Toolbar pageTitle = root_view.findViewById(R.id.currentPageTitle);
+            pageTitle.setTitle(professor.getName() + " - " + professor.getUuid());
+
+            activity.setContentView(root_view);
+        } else {
+            Log.println(Log.WARN, root.getResources().getString(R.id.applicationName), "Failed to set device root, as activity is null!");
+        }
     }
 }

@@ -13,7 +13,7 @@ public class DatabaseService extends SQLiteOpenHelper {
     private static final String DB_NAME = "pf_db";
     private static final int DB_VER = 1;
 
-    private DatabaseService instance = null;
+    private static DatabaseService instance = null;
 
     private DatabaseService(Context context) {
         super(context, DB_NAME, null, DB_VER);
@@ -23,7 +23,7 @@ public class DatabaseService extends SQLiteOpenHelper {
      * This function **must** be called before get instance
      * @param context
      */
-    public void initDatabase(Context context) {
+    public static void initDatabase(Context context) {
         instance = new DatabaseService(context);
     }
 
@@ -31,9 +31,9 @@ public class DatabaseService extends SQLiteOpenHelper {
      * Call getInstance() to modify members of this class
      * @return
      */
-    public DatabaseService getInstance() {
+    public static DatabaseService getInstance() {
         if (instance == null) {
-            Log.println(Log.WARN, this.getClass().getSimpleName() ,"Database service has not been initialized! Please call initDatabase()...");
+            Log.println(Log.WARN, DatabaseService.class.getSimpleName() ,"Database service has not been initialized! Please call initDatabase()...");
         }
 
         return instance;
@@ -43,15 +43,13 @@ public class DatabaseService extends SQLiteOpenHelper {
      * @return
      */
     public boolean doesUserExist(int uuid) {
+
         return false;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         Log.println(Log.INFO, this.getClass().getSimpleName(), "Creating SQLite database...");
-
-        // CREATE TABLE
-        //.execSQL();
     }
 
     @Override

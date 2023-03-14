@@ -3,7 +3,7 @@ package org.emu.lightningx.services;
 import org.emu.lightningx.models.ProfessorModel;
 
 public class GlobalStateService {
-    private GlobalStateService instance = null;
+    private static GlobalStateService instance = null;
 
     /**
      * This class represents the application global state.
@@ -13,7 +13,7 @@ public class GlobalStateService {
      */
     private GlobalStateService(){}
 
-    public GlobalStateService getInstance() {
+    public static GlobalStateService getInstance() {
         if (instance == null) {
             instance = new GlobalStateService();
         }
@@ -36,7 +36,7 @@ public class GlobalStateService {
      * @return
      */
     public ProfessorModel getSelectedProfessor() {
-        return this.selectedProfessor;
+        return selectedProfessor;
     }
 
     /**
