@@ -17,7 +17,7 @@ public class StudentRetrieveService {
     private StudentRetrieveService() {
         StudentModel student1 = new StudentModel("Jacob", "E0000001", R.drawable.theboy);
         StudentModel student2 = new StudentModel("Samantha", "E0000002", R.drawable.theboy);
-        StudentModel student3 = new StudentModel("Henry", "E0000003", R.drawable.theboy);
+        StudentModel student3 =   new StudentModel("Henry", "E0000003", R.drawable.theboy);
 
         students.add(student1);
         students.add(student2);
