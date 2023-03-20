@@ -1,6 +1,7 @@
 package org.emu.lightningx.models;
 
-public class StudentModel {
+public class
+StudentModel {
     public String studentName;
     public String studentId;
     // TODO, replace to internet

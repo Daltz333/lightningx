@@ -1,9 +1,11 @@
 package org.emu.lightningx.ui.main;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,6 +18,8 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.emu.lightningx.R;
 import org.emu.lightningx.models.ProfessorModel;
@@ -37,6 +41,8 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    // Represents the popup window used for retrieving user credentials
 
     public LoginFragment() {
         // Required empty public constructor
@@ -94,35 +100,16 @@ public class LoginFragment extends Fragment {
             if (DatabaseService.getInstance().doesUserExist(realUuid)) {
                 professor = new ProfessorModel();
                 userLoggedIn(professor, inflater, root);
+
             } else {
-                View popupView = inflater.inflate(R.layout.fragment_account_create, container, false);
-                PopupWindow window = new PopupWindow(popupView,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                AccountCreateFragment fragment = new AccountCreateFragment();
+                FragmentManager manager = getParentFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
 
-                window.showAtLocation(root, Gravity.CENTER, 0, 0);
-
-                window.setOnDismissListener(() -> {
-                    EditText newUuidTextEntry = window.getContentView().findViewById(R.id.accountCreationUuid);
-                    EditText newNameTextEntry = window.getContentView().findViewById(R.id.accountCreationName);
-
-                    int newUuid = -1;
-                    String newName = "";
-                    try {
-                        newUuid = Integer.parseInt(newUuidTextEntry.getText().toString());
-                        newName = newNameTextEntry.getText().toString();
-
-                    } catch (NumberFormatException ex) {
-                        Log.println(Log.INFO, getClass().getSimpleName(), "Failed to parse new account creation UUID");
-                        return;
-                    }
-
-                    ProfessorModel newProfessor = new ProfessorModel();
-                    newProfessor.setUuid(newUuid);
-                    newProfessor.setName(newName);
-
-                    userLoggedIn(newProfessor, inflater, root);
-                });
+                transaction.add(R.id.fragmentContainerView, fragment);
+                transaction.addToBackStack(fragment.getClass().getSimpleName());
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                transaction.commit();
 
                 return;
             }
@@ -148,4 +135,5 @@ public class LoginFragment extends Fragment {
             Log.println(Log.WARN, root.getResources().getString(R.id.applicationName), "Failed to set device root, as activity is null!");
         }
     }
+
 }

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="@string/add_class"
+    android:tooltipText="@string/add_class"
     tools:context=".ui.main.RootViewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +16,7 @@
             android:id="@+id/currentPageTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/purple_700"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,5 +35,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentPageTitle"
             app:navGraph="@navigation/navgraph" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/add_class"
+            android:src="@drawable/plus_dark"
+            android:tooltipText="Add Class"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/settingsCog"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@null"
+            android:contentDescription="Settings"
+            android:cropToPadding="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/cog_wheel_dark"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/currentPageTitle"
+            app:layout_constraintEnd_toEndOf="@+id/currentPageTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

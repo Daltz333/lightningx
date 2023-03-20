@@ -2,12 +2,12 @@ package org.emu.lightningx.ui.main;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.emu.lightningx.R;
 import org.emu.lightningx.services.GlobalStateService;
@@ -64,6 +64,10 @@ public class RootViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_root_view, container, false);
+
+        Toolbar toolbar = root.findViewById(R.id.currentPageTitle);
+
+        toolbar.setTitle(GlobalStateService.getInstance().getSelectedProfessor().getName());
 
         return root;
     }

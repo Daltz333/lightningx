@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/design_default_color_primary_dark"
     tools:context=".ui.main.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,9 +69,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="56dp"
-                android:backgroundTint="#3F51B5"
+                android:backgroundTint="@color/button_primary"
                 android:backgroundTintMode="add"
                 android:text="Go"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
