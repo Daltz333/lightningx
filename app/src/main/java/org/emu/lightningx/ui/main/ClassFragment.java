@@ -1,5 +1,6 @@
 package org.emu.lightningx.ui.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.emu.lightningx.R;
 import org.emu.lightningx.placeholder.PlaceholderContent;
@@ -55,11 +58,12 @@ public class ClassFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_class_list, container, false);
+        View listView = view.findViewById(R.id.list);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        if (listView instanceof RecyclerView) {
+            Context context = listView.getContext();
+            RecyclerView recyclerView = (RecyclerView) listView;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -67,6 +71,27 @@ public class ClassFragment extends Fragment {
             }
             recyclerView.setAdapter(new ClassRecyclerViewAdapter(PlaceholderContent.ITEMS));
         }
+
+        FloatingActionButton fab = view.findViewById(R.id.createClassFab);
+        fab.setOnClickListener(view1 -> onClassCreationButtonPressed());
+
         return view;
+    }
+
+    /**
+     * TODO This function should load our own custom AlertDialog
+     *
+     * The AlertDialog should contain some inputs that allow the user to create a new class
+     * Class name should suffice.
+     */
+    public void onClassCreationButtonPressed() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+
+        alert.setTitle("New Class");
+        alert.setMessage("Welcome to the class creation screen. This screen is still a WIP");
+        alert.setCancelable(true);
+
+        alert.create();
+        alert.show();
     }
 }

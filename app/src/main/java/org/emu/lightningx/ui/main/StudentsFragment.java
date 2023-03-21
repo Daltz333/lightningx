@@ -1,5 +1,6 @@
 package org.emu.lightningx.ui.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -9,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.emu.lightningx.R;
 import org.emu.lightningx.services.StudentRetrieveService;
@@ -67,6 +71,7 @@ public class StudentsFragment extends Fragment {
             }
             recyclerView.setAdapter(new StudentsRecyclerViewAdapter(StudentRetrieveService.instance.getStudents()));
         }
+
         return view;
     }
 }

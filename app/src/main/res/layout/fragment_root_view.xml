@@ -36,19 +36,6 @@
             app:layout_constraintTop_toBottomOf="@+id/currentPageTitle"
             app:navGraph="@navigation/navgraph" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/add_class"
-            android:src="@drawable/plus_dark"
-            android:tooltipText="Add Class"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <ImageButton
             android:id="@+id/settingsCog"
             android:layout_width="38dp"
