@@ -53,15 +53,17 @@
             android:id="@+id/settingsCog"
             android:layout_width="38dp"
             android:layout_height="38dp"
+            android:layout_marginEnd="8dp"
             android:background="@null"
             android:contentDescription="Settings"
             android:cropToPadding="false"
             android:scaleType="centerInside"
             android:src="@drawable/cog_wheel_dark"
-            android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/currentPageTitle"
             app:layout_constraintEnd_toEndOf="@+id/currentPageTitle"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
