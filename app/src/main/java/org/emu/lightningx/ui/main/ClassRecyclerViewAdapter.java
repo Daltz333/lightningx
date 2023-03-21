@@ -49,8 +49,8 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
 
         public ViewHolder(FragmentClassBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            mIdView = binding.numStudents;
+            mContentView = binding.className;
         }
 
         @Override
