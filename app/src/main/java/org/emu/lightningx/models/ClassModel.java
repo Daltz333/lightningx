@@ -13,10 +13,10 @@ public class ClassModel {
     private final ArrayList<StudentModel> students;
 
     // Name of the class
-    private String name;
+    private final String name;
 
     // Date that the class was created
-    private String classCreationDate;
+    private final String classCreationDate;
 
     public ClassModel(String name) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
