@@ -69,6 +69,9 @@ public class ClassFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+            // TODO, we should replace this adapter list of items with a list of CLASSES
+            // and bind the appropriate UI content
             recyclerView.setAdapter(new ClassRecyclerViewAdapter(PlaceholderContent.ITEMS));
         }
 

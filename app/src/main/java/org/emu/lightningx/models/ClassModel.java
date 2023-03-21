@@ -1,5 +1,7 @@
 package org.emu.lightningx.models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ClassModel {
@@ -10,8 +12,35 @@ public class ClassModel {
     // as this can impact application startup times
     private final ArrayList<StudentModel> students;
 
-    public ClassModel() {
+    // Name of the class
+    private String name;
+
+    // Date that the class was created
+    private String classCreationDate;
+
+    public ClassModel(String name) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         students = new ArrayList<StudentModel>();
+        classCreationDate = dtf.format(LocalDateTime.now());
+        this.name = name;
+    }
+
+    /**
+     * Get the name of the class
+     * @return
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Get the class creation date
+     * Formatted in form DD/MM/YYYY
+     * @return
+     */
+    public String getClassCreationDate() {
+        return this.classCreationDate;
     }
 
     /**
