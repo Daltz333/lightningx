@@ -1,22 +1,30 @@
 package org.emu.lightningx.services;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
+
+import org.emu.lightningx.models.ProfessorModel;
 
 /**
  * This class should does raw database access
  *
  */
 public class DatabaseService extends SQLiteOpenHelper {
-    private static final String DB_NAME = "pf_db";
+    private static final String DB_NAME = "pf_db.db";
     private static final int DB_VER = 1;
 
     private static DatabaseService instance = null;
 
+    private SQLiteDatabase db;
     private DatabaseService(Context context) {
         super(context, DB_NAME, null, DB_VER);
+
+        db = getWritableDatabase();
     }
 
     /**
@@ -25,6 +33,8 @@ public class DatabaseService extends SQLiteOpenHelper {
      */
     public static void initDatabase(Context context) {
         instance = new DatabaseService(context);
+
+        instance.insertProfessor();
     }
 
     /**
@@ -50,6 +60,8 @@ public class DatabaseService extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         Log.println(Log.INFO, this.getClass().getSimpleName(), "Creating SQLite database...");
+
+        sqLiteDatabase.execSQL("CREATE TABLE Professor(uuid INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(255));");
     }
 
     @Override
@@ -57,8 +69,47 @@ public class DatabaseService extends SQLiteOpenHelper {
         Log.println(Log.INFO, this.getClass().getSimpleName(), "New database version specified and old exists, upgrading...");
     }
 
+    public boolean insertProfessor() {
+        try {
+            // ADD NEW PROFESSOR TO TABLE
+            SQLiteStatement statement = db.compileStatement(kAddNewProfessor);
+            statement.executeInsert();
+
+            return true;
+        } catch (SQLException ex) {
+            Log.println(Log.WARN, "LightningX", ex.getMessage());
+            return false;
+        }
+    }
+
+    public ProfessorModel getProfessor(int uuid) {
+        try {
+            // GET THE UUID BASED ON ROW NUMBER
+            SQLiteStatement getUuid = db.compileStatement("SELECT * FROM Professor");
+
+            Cursor result = db.rawQuery("SELECT * FROM Professor WHERE uuid=?", new String[] {String.valueOf(uuid)});
+
+            result.moveToFirst();
+            int resultUuid = result.getInt(0);
+            String name = result.getString(1);
+
+            ProfessorModel professor = new ProfessorModel();
+            professor.setUuid(uuid);
+            professor.setName(name);
+
+            result.close();
+
+            return professor;
+        } catch (SQLException ex) {
+            Log.println(Log.WARN, "LightningX", ex.getMessage());
+            return null;
+        }
+    }
+
     // SQL QUERIES
     private static final String kDatabaseCreateQuery = "";
-    private static final String kAddNewProfessor = "";
+    private static final String kAddNewProfessor = "INSERT INTO Professor (name) VALUES (\"JOHN\");";
+    private static final String kGetNewUuid = "SELECT * FROM Professor WHERE BLAH"; // GET ROW
     private static final String kUpdateProfessor = "";
+
 }

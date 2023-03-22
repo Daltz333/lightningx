@@ -51,11 +51,17 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             super(binding.getRoot());
             mIdView = binding.numStudents;
             mContentView = binding.className;
+
+            binding.getRoot().setOnClickListener(view1 -> itemOnClick(binding));
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        public void itemOnClick(FragmentClassBinding binding) {
+
         }
     }
 }
