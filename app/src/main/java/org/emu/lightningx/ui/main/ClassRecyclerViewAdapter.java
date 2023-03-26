@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.emu.lightningx.R;
+import org.emu.lightningx.models.ClassModel;
 import org.emu.lightningx.placeholder.PlaceholderContent.PlaceholderItem;
 import org.emu.lightningx.databinding.FragmentClassBinding;
 
@@ -26,11 +27,11 @@ import java.util.List;
  */
 public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<ClassModel> mClasses;
     private final Context mContext;
 
-    public ClassRecyclerViewAdapter(List<PlaceholderItem> items, Context context) {
-        mValues = items;
+    public ClassRecyclerViewAdapter(List<ClassModel> classes, Context context) {
+        mClasses = classes;
         mContext = context;
     }
 
@@ -43,25 +44,29 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mClass = mClasses.get(position);
+        holder.mIdView.setText("NULL");
+        holder.mContentView.setText(mClasses.get(position).getName());
+        holder.mDateView.setText(mClasses.get(position).getClassCreationDate());
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mClasses.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public ClassModel mClass;
+
+        public TextView mDateView;
 
         public ViewHolder(FragmentClassBinding binding) {
             super(binding.getRoot());
             mIdView = binding.numStudents;
             mContentView = binding.className;
+            mDateView = binding.classCreationDate;
 
             binding.getRoot().setOnClickListener(view1 -> itemOnClick(binding));
         }

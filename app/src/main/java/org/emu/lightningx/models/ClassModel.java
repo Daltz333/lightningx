@@ -16,7 +16,7 @@ public class ClassModel {
     private final String name;
 
     // Date that the class was created
-    private final String classCreationDate;
+    private String classCreationDate;
 
     public ClassModel(String name) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -41,6 +41,15 @@ public class ClassModel {
      */
     public String getClassCreationDate() {
         return this.classCreationDate;
+    }
+
+    /**
+     * Set the class creation date
+     * Should be formatted in form DD/MM/YYYY
+     * @param classCreationDate
+     */
+    public void setClassCreationDate(String classCreationDate) {
+        this.classCreationDate = classCreationDate;
     }
 
     /**

@@ -55,4 +55,7 @@ public class ProfessorModel {
         classes.remove(classToRemove);
     }
 
+    public ArrayList<ClassModel> getClasses() {
+        return classes;
+    }
 }
