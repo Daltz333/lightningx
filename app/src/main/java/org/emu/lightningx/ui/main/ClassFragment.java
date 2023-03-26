@@ -58,7 +58,7 @@ public class ClassFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_class_list, container, false);
-        View listView = view.findViewById(R.id.list);
+        View listView = view.findViewById(R.id.studentRecyclerAdapter);
 
         // Set the adapter
         if (listView instanceof RecyclerView) {
@@ -72,7 +72,7 @@ public class ClassFragment extends Fragment {
 
             // TODO, we should replace this adapter list of items with a list of CLASSES
             // and bind the appropriate UI content
-            recyclerView.setAdapter(new ClassRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new ClassRecyclerViewAdapter(PlaceholderContent.ITEMS, context));
         }
 
         FloatingActionButton fab = view.findViewById(R.id.createClassFab);

@@ -1,11 +1,20 @@
 package org.emu.lightningx.ui.main;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.emu.lightningx.R;
 import org.emu.lightningx.placeholder.PlaceholderContent.PlaceholderItem;
 import org.emu.lightningx.databinding.FragmentClassBinding;
 
@@ -18,9 +27,11 @@ import java.util.List;
 public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecyclerViewAdapter.ViewHolder> {
 
     private final List<PlaceholderItem> mValues;
+    private final Context mContext;
 
-    public ClassRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public ClassRecyclerViewAdapter(List<PlaceholderItem> items, Context context) {
         mValues = items;
+        mContext = context;
     }
 
     @Override
@@ -61,7 +72,9 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
         }
 
         public void itemOnClick(FragmentClassBinding binding) {
+            NavController controller = Navigation.findNavController(binding.getRoot());
 
+            controller.navigate(R.id.studentsFragment);
         }
     }
 }
