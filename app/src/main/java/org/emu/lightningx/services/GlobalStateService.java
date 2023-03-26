@@ -1,5 +1,6 @@
 package org.emu.lightningx.services;
 
+import org.emu.lightningx.models.ClassModel;
 import org.emu.lightningx.models.ProfessorModel;
 
 public class GlobalStateService {
@@ -22,6 +23,7 @@ public class GlobalStateService {
     }
 
     private ProfessorModel selectedProfessor;
+    private ClassModel selectedClass;
 
     /**
      * Set the currently logged in professor
@@ -37,6 +39,22 @@ public class GlobalStateService {
      */
     public ProfessorModel getSelectedProfessor() {
         return selectedProfessor;
+    }
+
+    /**
+     * Gets the currently selected class
+     * @param selectedClass
+     */
+    public void setSelectedClass(ClassModel selectedClass) {
+        this.selectedClass = selectedClass;
+    }
+
+    /**
+     * Sets the currently selected class
+     * @return
+     */
+    public ClassModel getSelectedClass() {
+        return this.selectedClass;
     }
 
     /**

@@ -116,6 +116,7 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
         public void itemOnClick(FragmentClassBinding binding) {
             NavController controller = Navigation.findNavController(binding.getRoot());
 
+            GlobalStateService.getInstance().setSelectedClass(mClass);
             controller.navigate(R.id.studentsFragment);
         }
     }

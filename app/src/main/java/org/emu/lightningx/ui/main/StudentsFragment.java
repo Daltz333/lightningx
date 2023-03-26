@@ -1,6 +1,5 @@
 package org.emu.lightningx.ui.main;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,14 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import org.emu.lightningx.R;
+import org.emu.lightningx.services.GlobalStateService;
 import org.emu.lightningx.services.StudentRetrieveService;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A fragment representing a list of Items.
@@ -60,6 +62,17 @@ public class StudentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_list, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.studentRecyclerAdapter);
+
+        if (getActivity() != null) {
+            Toolbar toolbar = getActivity().findViewById(R.id.currentPageTitle);
+
+            toolbar.setTitle(GlobalStateService.getInstance().getSelectedClass().getName());
+        }
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        TextView currentDate = view.findViewById(R.id.datePickerCurrentDate);
+
+        currentDate.setText(LocalDateTime.now().format(format));
 
         Context context = view.getContext();
 

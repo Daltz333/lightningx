@@ -34,7 +34,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
         holder.mStudent = mStudents.get(position);
         holder.mIdView.setText(mStudents.get(position).studentId);
         holder.mNameView.setText(mStudents.get(position).studentName);
-        holder.mImageView.setImageResource(mStudents.get(position).studentProfileUriPath);
+        //holder.mImageView.setImageResource(mStudents.get(position).studentProfileUriPath);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mNameView;
         public final TextView mIdView;
-        public final ImageView mImageView;
+        //public final ImageView mImageView;
 
         public StudentModel mStudent;
 
@@ -54,7 +54,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
 
             mNameView = binding.studentNameText;
             mIdView = binding.studentIdTextbox;
-            mImageView = binding.studentImageView;
+            //mImageView = binding.studentImageView;
         }
     }
 }
