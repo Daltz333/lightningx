@@ -8,10 +8,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.emu.lightningx.R;
@@ -20,6 +23,8 @@ import org.emu.lightningx.placeholder.PlaceholderContent.PlaceholderItem;
 import org.emu.lightningx.databinding.FragmentClassBinding;
 import org.emu.lightningx.services.GlobalStateService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -77,20 +82,34 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
         }
 
         public boolean onLongClick() {
-            int position = GlobalStateService.getInstance().getSelectedProfessor().
-                    getClasses().
-                    indexOf(mClass);
+            AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 
-            GlobalStateService.getInstance().getSelectedProfessor().removeClass(mClass);
+            alert.setTitle("Delete " + mClass.getName() + "?");
+            alert.setMessage("This action is permanent and irreversible. Are you sure?");
 
-            if (getBindingAdapter() != null) {
-                // forcibly notify the adapter that data has changed
-                // there seems to be some sort of race condition
-                // when adding items for the first time
-                getBindingAdapter().notifyItemRemoved(position);
-            } else {
-                Log.println(Log.WARN, "LightningX", "Failed to delete class, adapter was null!");
-            }
+            alert.setPositiveButton("Delete", (dialog, whichButton) -> {
+                int position = GlobalStateService.getInstance().getSelectedProfessor().
+                        getClasses().
+                        indexOf(mClass);
+
+                GlobalStateService.getInstance().getSelectedProfessor().removeClass(mClass);
+
+                if (getBindingAdapter() != null) {
+                    // forcibly notify the adapter that data has changed
+                    // there seems to be some sort of race condition
+                    // when adding items for the first time
+                    getBindingAdapter().notifyItemRemoved(position);
+                } else {
+                    Log.println(Log.WARN, "LightningX", "Failed to delete class, adapter was null!");
+                }
+            });
+
+            alert.setNegativeButton("Cancel", (dialog, whichButton) -> {
+                dialog.cancel();
+            });
+
+            alert.create();
+            alert.show();
 
             return true;
         }
