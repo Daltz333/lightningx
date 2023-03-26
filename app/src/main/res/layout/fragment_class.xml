@@ -19,7 +19,6 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="4dp"
         android:backgroundTint="#A8A5A5"
-        android:tint="#BABABA"
         app:layout_constraintEnd_toStartOf="@+id/numStudents"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/student_icon" />
