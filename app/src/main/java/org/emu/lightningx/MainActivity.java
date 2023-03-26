@@ -2,23 +2,11 @@ package org.emu.lightningx;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import org.emu.lightningx.services.DatabaseService;
-import org.emu.lightningx.ui.main.SectionsPagerAdapter;
 import org.emu.lightningx.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
         DatabaseService.initDatabase(this.getBaseContext());
 

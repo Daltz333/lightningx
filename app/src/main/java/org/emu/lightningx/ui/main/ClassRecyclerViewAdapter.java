@@ -88,6 +88,8 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             alert.setMessage("This action is permanent and irreversible. Are you sure?");
 
             alert.setPositiveButton("Delete", (dialog, whichButton) -> {
+                // Not necessarily required, but it's good practice to always mutate
+                // the origin list, instead of the reference
                 int position = GlobalStateService.getInstance().getSelectedProfessor().
                         getClasses().
                         indexOf(mClass);
@@ -95,9 +97,6 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
                 GlobalStateService.getInstance().getSelectedProfessor().removeClass(mClass);
 
                 if (getBindingAdapter() != null) {
-                    // forcibly notify the adapter that data has changed
-                    // there seems to be some sort of race condition
-                    // when adding items for the first time
                     getBindingAdapter().notifyItemRemoved(position);
                 } else {
                     Log.println(Log.WARN, "LightningX", "Failed to delete class, adapter was null!");

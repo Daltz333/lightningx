@@ -98,6 +98,7 @@ public class AccountCreateFragment extends Fragment {
                 professor.setName(name);
                 professor.setUuid(id);
 
+                // Set the selected professor
                 GlobalStateService.getInstance().setSelectedProfessor(professor);
 
                 RootViewFragment root_view_fragment = new RootViewFragment();
@@ -110,6 +111,7 @@ public class AccountCreateFragment extends Fragment {
                 transaction.commit();
 
             } catch (NumberFormatException ex){
+                // User entered a bad uuid somehow
                 TextView errorText = root.findViewById(R.id.accountCreateErrorText);
 
                 errorText.setText("Invalid UUID, UUID must be a non-negative integer!");

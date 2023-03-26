@@ -13,14 +13,29 @@ StudentModel {
         studentProfileUriPath = resourceId;
     }
 
+    /**
+     * Get the students name.
+     * We may convert this into two separate fields: first and last name
+     * @return
+     */
     public String getStudentName() {
         return studentName;
     }
 
+    /**
+     * Get the student UUID
+     * @return
+     */
     public String getStudentId() {
         return studentId;
     }
 
+    /**
+     * Get the student profile picture UUID
+     *
+     * We may not implement this
+     * @return
+     */
     public int getStudentProfileUriPath() {
         return studentProfileUriPath;
     }

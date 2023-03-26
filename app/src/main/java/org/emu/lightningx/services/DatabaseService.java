@@ -20,7 +20,7 @@ public class DatabaseService extends SQLiteOpenHelper {
 
     private static DatabaseService instance = null;
 
-    private SQLiteDatabase db;
+    private final SQLiteDatabase db;
     private DatabaseService(Context context) {
         super(context, DB_NAME, null, DB_VER);
 

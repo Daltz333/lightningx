@@ -91,6 +91,7 @@ public class LoginFragment extends Fragment {
             // TODO, update textfield above login box stating to enter a valid UUID
             int realUuid = -1;
 
+            // do some input checking
             try {
                 realUuid = Integer.parseInt(uuid.getText().toString());
             } catch (NumberFormatException ex) {
@@ -102,6 +103,7 @@ public class LoginFragment extends Fragment {
                 userLoggedIn(professor, inflater, root);
 
             } else {
+                // Open the account creation page, by a fragment transaction
                 AccountCreateFragment fragment = new AccountCreateFragment();
                 FragmentManager manager = getParentFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();

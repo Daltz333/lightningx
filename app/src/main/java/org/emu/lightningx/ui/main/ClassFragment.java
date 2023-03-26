@@ -104,6 +104,7 @@ public class ClassFragment extends Fragment {
      */
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     public void onClassCreationButtonPressed() {
+        // generate the alert UI
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
         alert.setTitle("Enter Class Name:");
@@ -121,6 +122,7 @@ public class ClassFragment extends Fragment {
         alert.setCancelable(true);
 
         alert.setPositiveButton("Create", (dialog, whichButton) -> {
+            // Create a class and update the navigation
             ClassModel newClass = new ClassModel(editTextClassName.getText().toString());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             newClass.setClassCreationDate(LocalDateTime.now().format(formatter));
@@ -129,6 +131,8 @@ public class ClassFragment extends Fragment {
                     .getSelectedProfessor()
                     .addClass(newClass);
 
+            // forcibly update navigation due to a weird bug
+            // that causes the first item added to have a long delay
             if (recyclerView.getAdapter() != null) {
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
