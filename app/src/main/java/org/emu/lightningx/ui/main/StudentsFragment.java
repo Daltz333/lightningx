@@ -85,4 +85,14 @@ public class StudentsFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onDestroyView() {
+        if (getActivity() != null) {
+            // restore toolbar as we are going back to root
+            Toolbar toolbar = getActivity().findViewById(R.id.currentPageTitle);
+            toolbar.setTitle(GlobalStateService.getInstance().getSelectedProfessor().getName());
+        }
+        super.onDestroyView();
+    }
 }
