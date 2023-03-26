@@ -1,8 +1,11 @@
 package org.emu.lightningx.ui.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -31,12 +35,15 @@ public class StudentsFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 2;
 
+    private TextView selectedDate;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public StudentsFragment() {
     }
+
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -70,9 +77,12 @@ public class StudentsFragment extends Fragment {
         }
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        TextView currentDate = view.findViewById(R.id.datePickerCurrentDate);
+        selectedDate  = view.findViewById(R.id.datePickerCurrentDate);
+        ConstraintLayout datePicker = view.findViewById(R.id.datePickerConstraintLayout);
 
-        currentDate.setText(LocalDateTime.now().format(format));
+        datePicker.setOnClickListener(this::onDatePickerClick);
+
+        selectedDate.setText(LocalDateTime.now().format(format));
 
         Context context = view.getContext();
 
@@ -94,5 +104,26 @@ public class StudentsFragment extends Fragment {
             toolbar.setTitle(GlobalStateService.getInstance().getSelectedProfessor().getName());
         }
         super.onDestroyView();
+    }
+
+    public void onDatePickerClick(View view) {
+        // build calendar popup view
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        View dialogView = new DatePickerPopupFragment().onCreateView(getLayoutInflater(), null, null);
+
+        alert.setCancelable(true);
+        alert.setView(dialogView);
+
+        AlertDialog alertDialog = alert.show();
+        CalendarView calendar = dialogView.findViewById(R.id.calendarView);
+
+        calendar.setOnDateChangeListener((view1, year, month, day) -> {
+            GlobalStateService.getInstance().setSelectedDate(month + "/" + day + "/" + year);
+            alertDialog.dismiss();
+        });
+
+        alertDialog.setOnDismissListener(args -> {
+            selectedDate.setText(GlobalStateService.getInstance().getSelectedDate());
+        });
     }
 }

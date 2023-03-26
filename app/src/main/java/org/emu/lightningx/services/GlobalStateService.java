@@ -24,6 +24,7 @@ public class GlobalStateService {
 
     private ProfessorModel selectedProfessor;
     private ClassModel selectedClass;
+    private String selectedDate;
 
     /**
      * Set the currently logged in professor
@@ -55,6 +56,22 @@ public class GlobalStateService {
      */
     public ClassModel getSelectedClass() {
         return this.selectedClass;
+    }
+
+    /**
+     * Set the current selected date for attendance
+     * @param date
+     */
+    public void setSelectedDate(String date) {
+        this.selectedDate = date;
+    }
+
+    /**
+     * Get the current selected date for attendance
+     * @return
+     */
+    public String getSelectedDate() {
+        return this.selectedDate;
     }
 
     /**
