@@ -40,6 +40,7 @@ public class ClassFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
+    private RecyclerView recyclerView;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -66,6 +67,7 @@ public class ClassFragment extends Fragment {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class ClassFragment extends Fragment {
         // Set the adapter
         if (listView instanceof RecyclerView) {
             Context context = listView.getContext();
-            RecyclerView recyclerView = (RecyclerView) listView;
+            recyclerView = (RecyclerView) listView;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -100,7 +102,7 @@ public class ClassFragment extends Fragment {
      * The AlertDialog should contain some inputs that allow the user to create a new class
      * Class name should suffice.
      */
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     public void onClassCreationButtonPressed() {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
@@ -126,6 +128,12 @@ public class ClassFragment extends Fragment {
             GlobalStateService.getInstance()
                     .getSelectedProfessor()
                     .addClass(newClass);
+
+            if (recyclerView.getAdapter() != null) {
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+
+            dialog.dismiss();
         });
 
         alert.setNegativeButton("Cancel", (dialog, whichButton) -> {

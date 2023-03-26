@@ -18,6 +18,7 @@ import org.emu.lightningx.R;
 import org.emu.lightningx.models.ClassModel;
 import org.emu.lightningx.placeholder.PlaceholderContent.PlaceholderItem;
 import org.emu.lightningx.databinding.FragmentClassBinding;
+import org.emu.lightningx.services.GlobalStateService;
 
 import java.util.List;
 
@@ -37,9 +38,7 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         return new ViewHolder(FragmentClassBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
     }
 
     @Override
@@ -69,11 +68,31 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             mDateView = binding.classCreationDate;
 
             binding.getRoot().setOnClickListener(view1 -> itemOnClick(binding));
+            binding.getRoot().setOnLongClickListener(view1 -> onLongClick());
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        public boolean onLongClick() {
+            int position = GlobalStateService.getInstance().getSelectedProfessor().
+                    getClasses().
+                    indexOf(mClass);
+
+            GlobalStateService.getInstance().getSelectedProfessor().removeClass(mClass);
+
+            if (getBindingAdapter() != null) {
+                // forcibly notify the adapter that data has changed
+                // there seems to be some sort of race condition
+                // when adding items for the first time
+                getBindingAdapter().notifyItemRemoved(position);
+            } else {
+                Log.println(Log.WARN, "LightningX", "Failed to delete class, adapter was null!");
+            }
+
+            return true;
         }
 
         public void itemOnClick(FragmentClassBinding binding) {
