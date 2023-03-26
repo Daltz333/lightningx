@@ -6,6 +6,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,4 +52,10 @@ public class MainActivity extends AppCompatActivity {
         */
     }
 
+    @Override
+    public void onBackPressed() {
+        NavController navController = Navigation.findNavController(findViewById(R.id.rootFragmentNavGraph));
+
+        navController.navigateUp();
+    }
 }
