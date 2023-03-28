@@ -35,6 +35,27 @@ public class AttendanceDateModel {
     }
 
     /**
+     * Checks to see if a student is in the attendance list for this date
+     *
+     * It can be assumed that a student is not present if
+     * it's not contained in this objects ArrayList
+     * @param id
+     * @return
+     */
+    public boolean isStudentPresent(String id) {
+        // Iterate over the students list
+        // and compare based on ID
+        if (!studentsPresent.isEmpty()) {
+            for (StudentModel student : studentsPresent) {
+                if (student.getStudentId().equalsIgnoreCase(id)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get the attendance date. This can be useful for UI
      * @return
      */

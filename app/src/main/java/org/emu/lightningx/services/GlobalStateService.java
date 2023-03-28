@@ -1,7 +1,14 @@
 package org.emu.lightningx.services;
 
+import android.util.Log;
+
+import org.emu.lightningx.models.AttendanceDateModel;
 import org.emu.lightningx.models.ClassModel;
 import org.emu.lightningx.models.ProfessorModel;
+import org.emu.lightningx.models.StudentModel;
+import org.emu.lightningx.util.GlobalUtil;
+
+import java.util.ArrayList;
 
 public class GlobalStateService {
     private static GlobalStateService instance = null;
@@ -12,7 +19,9 @@ public class GlobalStateService {
      * It contains the root data such as the current professor selected,
      * settings modifications, etc
      */
-    private GlobalStateService(){}
+    private GlobalStateService(){
+        selectedDate = GlobalUtil.getCurrentDateFormatted();
+    }
 
     public static GlobalStateService getInstance() {
         if (instance == null) {
@@ -31,6 +40,7 @@ public class GlobalStateService {
      * @param prof
      */
     public void setSelectedProfessor(ProfessorModel prof) {
+        // TODO pull from database the attendance for this professor
         this.selectedProfessor = prof;
     }
 

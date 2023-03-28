@@ -29,6 +29,7 @@ import org.emu.lightningx.services.GlobalStateService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -126,6 +127,9 @@ public class ClassFragment extends Fragment {
             ClassModel newClass = new ClassModel(editTextClassName.getText().toString());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             newClass.setClassCreationDate(LocalDateTime.now().format(formatter));
+
+            // TODO replace with DB
+            newClass.updateAttendanceDates(new ArrayList<>());
 
             GlobalStateService.getInstance()
                     .getSelectedProfessor()

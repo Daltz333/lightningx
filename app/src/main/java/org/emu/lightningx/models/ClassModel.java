@@ -1,5 +1,7 @@
 package org.emu.lightningx.models;
 
+import org.emu.lightningx.services.GlobalStateService;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ public class ClassModel {
     // Date that the class was created
     private String classCreationDate;
 
+    private int uuid;
+    private ArrayList<AttendanceDateModel> attendanceDates;
+
     public ClassModel(String name) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -27,11 +32,78 @@ public class ClassModel {
     }
 
     /**
+     * To be used by GlobalStateService to update this object
+     *
+     * whenever a class is selected
+     * @param attendanceDates
+     */
+    public void updateAttendanceDates(ArrayList<AttendanceDateModel> attendanceDates) {
+        this.attendanceDates = attendanceDates;
+    }
+
+    /**
+     * Iterates over the list of students, and returns whether or not a student is present
+     *
+     * A student is considered NOT present if it's not in this list.
+     * @param student
+     * @param date
+     * @return
+     */
+    public boolean isStudentPresent(StudentModel student, String date) {
+        return getAttendanceDate(date).isStudentPresent(student.getStudentId());
+    }
+
+    public void markStudentPresent(StudentModel student, String date, boolean present) {
+        AttendanceDateModel attendance = getAttendanceDate(date);
+
+        if (attendance.isStudentPresent(student.getStudentId())) {
+            attendance.removeStudent(student);
+        } else {
+            attendance.addPresentStudent(student);
+        }
+    }
+
+    public AttendanceDateModel getAttendanceDate(String date) {
+        if (attendanceDates != null) {
+            if (!attendanceDates.isEmpty()) {
+                for (AttendanceDateModel attendance : attendanceDates) {
+                    if (attendance.getAttendanceDate().equalsIgnoreCase(date)) {
+                        return attendance;
+                    }
+                }
+            }
+
+            AttendanceDateModel newDate = new AttendanceDateModel(GlobalStateService.getInstance().getSelectedDate(), this);
+            attendanceDates.add(newDate);
+
+            return newDate;
+        }
+
+        return null;
+    }
+
+    /**
      * Get the name of the class
      * @return
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Get the uuid of the current class
+     * @return
+     */
+    public int getUuid() {
+        return this.uuid;
+    }
+
+    /**
+     * Sets the uuid of the current class
+     * @param uuid
+     */
+    public void setUuid(int uuid) {
+        this.uuid = uuid;
     }
 
     /**
