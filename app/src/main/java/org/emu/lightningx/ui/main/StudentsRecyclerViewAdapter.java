@@ -42,7 +42,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
         holder.mNameView.setText(mStudents.get(position).studentName);
 
         holder.updateCardColor(holder.mStudent);
-        //holder.mImageView.setImageResource(mStudents.get(position).studentProfileUriPath);
+        holder.mImageView.setImageResource(mStudents.get(position).studentProfileUriPath);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mNameView;
         public final TextView mIdView;
-        //public final ImageView mImageView;
+        public final ImageView mImageView;
 
         public StudentModel mStudent;
         private CardView card;
@@ -64,6 +64,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
             card = binding.studentCard;
             mNameView = binding.studentNameText;
             mIdView = binding.studentIdTextbox;
+            mImageView = binding.studentPicture;
 
             // User clicked on button
             binding.getRoot().setOnClickListener(view1 -> {

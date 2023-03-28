@@ -12,26 +12,25 @@
     android:focusable="true"
     app:circularflow_defaultRadius="20dp">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="#A8A5A5"
-        app:layout_constraintEnd_toStartOf="@+id/numStudents"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/student_icon" />
-
     <TextView
         android:id="@+id/numStudents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
         android:text="0"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="357dp"
+        tools:layout_editor_absoluteY="28dp" />
+
+    <ImageView
+        android:id="@+id/numStudentsIcon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:backgroundTint="#A8A5A5"
+        app:srcCompat="@drawable/student_icon_black"
+        tools:layout_editor_absoluteX="323dp"
+        tools:layout_editor_absoluteY="33dp" />
 
     <TextView
         android:id="@+id/className"
@@ -48,9 +47,7 @@
         android:id="@+id/classCreationDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
         android:text="0/0/0000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="73dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

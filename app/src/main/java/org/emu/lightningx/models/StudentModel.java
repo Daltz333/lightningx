@@ -1,5 +1,7 @@
 package org.emu.lightningx.models;
 
+import org.emu.lightningx.R;
+
 public class
 StudentModel {
     public String studentName;
@@ -11,6 +13,12 @@ StudentModel {
         studentName = name;
         studentId = id;
         studentProfileUriPath = resourceId;
+    }
+
+    public StudentModel(String name, String id) {
+        studentName = name;
+        studentId = id;
+        studentProfileUriPath = R.drawable.student_icon_black;
     }
 
     /**

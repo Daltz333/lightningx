@@ -21,9 +21,9 @@ public class StudentRetrieveService {
     private final ArrayList<StudentModel> students = new ArrayList<>();
 
     private StudentRetrieveService() {
-        StudentModel student1 = new StudentModel("Jacob", "E0000001", R.drawable.theboy);
+        StudentModel student1 = new StudentModel("Jacob", "E0000001", R.drawable.catjam);
         StudentModel student2 = new StudentModel("Samantha", "E0000002", R.drawable.theboy);
-        StudentModel student3 =   new StudentModel("Henry", "E0000003", R.drawable.theboy);
+        StudentModel student3 = new StudentModel("Henry", "E0000003");
 
         students.add(student1);
         students.add(student2);
