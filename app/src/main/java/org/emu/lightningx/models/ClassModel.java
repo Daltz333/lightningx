@@ -1,6 +1,7 @@
 package org.emu.lightningx.models;
 
 import org.emu.lightningx.services.GlobalStateService;
+import org.emu.lightningx.util.GlobalUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,14 +22,22 @@ public class ClassModel {
     private String classCreationDate;
 
     private int uuid;
+
     private ArrayList<AttendanceDateModel> attendanceDates;
 
     public ClassModel(String name) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        students = new ArrayList<>();
+        classCreationDate = GlobalUtil.getCurrentDateFormatted();
 
-        students = new ArrayList<StudentModel>();
-        classCreationDate = dtf.format(LocalDateTime.now());
         this.name = name;
+    }
+
+    /**
+     * Get the number of students in this class
+     * @return
+     */
+    public int getNumStudents() {
+        return students.size();
     }
 
     /**

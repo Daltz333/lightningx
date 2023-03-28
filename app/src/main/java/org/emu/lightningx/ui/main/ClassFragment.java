@@ -25,6 +25,7 @@ import org.emu.lightningx.R;
 import org.emu.lightningx.models.ClassModel;
 import org.emu.lightningx.placeholder.PlaceholderContent;
 import org.emu.lightningx.services.GlobalStateService;
+import org.emu.lightningx.util.GlobalUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -124,9 +125,14 @@ public class ClassFragment extends Fragment {
 
         alert.setPositiveButton("Create", (dialog, whichButton) -> {
             // Create a class and update the navigation
-            ClassModel newClass = new ClassModel(editTextClassName.getText().toString());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-            newClass.setClassCreationDate(LocalDateTime.now().format(formatter));
+            String className = editTextClassName.getText().toString();
+
+            if (className.isEmpty()) {
+                return;
+            }
+
+            ClassModel newClass = new ClassModel(className);
+            newClass.setClassCreationDate(GlobalUtil.getCurrentDateFormatted());
 
             // TODO replace with DB
             newClass.updateAttendanceDates(new ArrayList<>());

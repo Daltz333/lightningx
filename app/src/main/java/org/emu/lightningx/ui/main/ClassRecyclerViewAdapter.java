@@ -49,7 +49,7 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mClass = mClasses.get(position);
-        holder.mIdView.setText("NULL");
+        holder.mIdView.setText(String.valueOf(holder.mClass.getNumStudents()));
         holder.mContentView.setText(mClasses.get(position).getName());
         holder.mDateView.setText(mClasses.get(position).getClassCreationDate());
     }
