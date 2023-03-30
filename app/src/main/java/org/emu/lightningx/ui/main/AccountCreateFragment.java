@@ -112,10 +112,13 @@ public class AccountCreateFragment extends Fragment {
 
             } catch (NumberFormatException ex){
                 // User entered a bad uuid somehow
-                TextView errorText = root.findViewById(R.id.accountCreateErrorText);
 
-                errorText.setText("Invalid UUID, UUID must be a non-negative integer!");
-                errorText.setVisibility(View.VISIBLE);
+                //Hello! it's Luke. I deleted this so that I could better format the UI.
+                //Add it back when you need it again.
+                //TextView errorText = root.findViewById(R.id.accountCreateErrorText);
+
+                //errorText.setText("Invalid UUID, UUID must be a non-negative integer!");
+                //errorText.setVisibility(View.VISIBLE);
             }
         });
 
