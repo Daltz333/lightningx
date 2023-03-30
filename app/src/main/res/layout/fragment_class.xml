@@ -16,40 +16,37 @@
         android:id="@+id/numStudents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="32dp"
         android:layout_weight="1"
         android:text="0"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/numStudentsIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/numStudentsIcon"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginBottom="33dp"
         android:layout_weight="1"
         android:backgroundTint="#A8A5A5"
+        android:contentDescription="represents num of students"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/numStudents"
-        app:layout_constraintStart_toEndOf="@+id/className"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/student_icon_black" />
 
     <TextView
         android:id="@+id/className"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="Dummy Class"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/classCreationDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -62,4 +59,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/className" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="300dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
