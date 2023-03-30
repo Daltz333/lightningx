@@ -28,9 +28,10 @@
                 android:layout_height="wrap_content"
                 android:text="Student Name"
                 android:textColor="#000000"
+                app:layout_constraintBottom_toTopOf="@+id/studentIdTextbox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/studentPicture"
-                tools:layout_editor_absoluteY="16dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/studentIdTextbox"
@@ -41,15 +42,18 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/studentPicture"
                 app:layout_constraintTop_toBottomOf="@+id/studentNameText" />
 
             <ImageView
                 android:id="@+id/studentPicture"
-                android:layout_width="87dp"
-                android:layout_height="86dp"
-                app:srcCompat="@drawable/student_icon_white"
-                tools:layout_editor_absoluteY="-1dp" />
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/student_icon_black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
