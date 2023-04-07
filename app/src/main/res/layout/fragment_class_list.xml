@@ -14,11 +14,14 @@
         android:name="org.emu.lightningx.ClassFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
+        android:backgroundTint="@color/blue_900"
+        android:backgroundTintMode="add"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.main.ClassFragment"
-        tools:listitem="@layout/fragment_class"/>
+        tools:listitem="@layout/fragment_class" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/createClassFab"
@@ -26,9 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/yellow_200"
         android:clickable="true"
         android:contentDescription="Add Class Button"
         android:src="@drawable/plus_dark"
+        app:tint="@color/dark_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

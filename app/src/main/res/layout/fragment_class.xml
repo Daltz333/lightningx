@@ -8,6 +8,7 @@
     android:layout_marginTop="20dp"
     android:layout_marginBottom="0dp"
     android:background="@drawable/class_card"
+    android:backgroundTint="@color/blue_500"
     android:clickable="true"
     android:focusable="true"
     app:circularflow_defaultRadius="20dp">
@@ -19,6 +20,7 @@
         android:layout_marginEnd="32dp"
         android:layout_weight="1"
         android:text="0"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,15 +39,18 @@
         app:layout_constraintEnd_toStartOf="@+id/numStudents"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/student_icon_black" />
+        app:srcCompat="@drawable/student_icon_white" />
 
     <TextView
         android:id="@+id/className"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="6dp"
         android:text="Dummy Class"
+        android:textColor="@color/white"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/classCreationDate"
         app:layout_constraintStart_toStartOf="@+id/classCreationDate"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,8 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="0/0/0000"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/className" />

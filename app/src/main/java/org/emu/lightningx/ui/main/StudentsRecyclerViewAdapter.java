@@ -74,7 +74,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
                 // transparent can be assumed present
                 // behavior may change in the future
                 if (currentClass.isStudentPresent(mStudent, GlobalStateService.getInstance().getSelectedDate())) {
-                    card.setCardBackgroundColor(view1.getContext().getResources().getColor(R.color.purple_500, view1.getContext().getTheme()));
+                    card.setCardBackgroundColor(view1.getContext().getResources().getColor(R.color.light_gray, view1.getContext().getTheme()));
                     currentClass.markStudentPresent(mStudent, GlobalStateService.getInstance().getSelectedDate(), false);
                 } else {
                     card.setCardBackgroundColor(Color.GREEN);
@@ -87,7 +87,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
             int color = GlobalStateService.getInstance().
                     getSelectedClass().
                     isStudentPresent(student, GlobalStateService.getInstance()
-                            .getSelectedDate()) ? Color.GREEN : card.getContext().getResources().getColor(R.color.purple_500, card.getContext().getTheme());
+                            .getSelectedDate()) ? Color.GREEN : card.getContext().getResources().getColor(R.color.light_gray, card.getContext().getTheme());
 
             card.setCardBackgroundColor(color);
         }
