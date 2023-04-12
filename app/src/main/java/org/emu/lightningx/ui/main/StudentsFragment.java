@@ -19,6 +19,8 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.emu.lightningx.R;
 import org.emu.lightningx.services.GlobalStateService;
 import org.emu.lightningx.services.StudentRetrieveService;
@@ -81,6 +83,7 @@ public class StudentsFragment extends Fragment {
             toolbar.setTitle(GlobalStateService.getInstance().getSelectedClass().getName());
         }
 
+        // Set date picker logic
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         selectedDate  = view.findViewById(R.id.datePickerCurrentDate);
         ConstraintLayout datePicker = view.findViewById(R.id.datePickerConstraintLayout);
@@ -90,6 +93,10 @@ public class StudentsFragment extends Fragment {
         selectedDate.setText(LocalDateTime.now().format(format));
 
         Context context = view.getContext();
+
+        // Set student create FAB logic
+        FloatingActionButton fab = view.findViewById(R.id.createStudentFab);
+        fab.setOnClickListener(this::onStudentFabClicked);
 
         if (mColumnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -109,6 +116,15 @@ public class StudentsFragment extends Fragment {
             toolbar.setTitle(GlobalStateService.getInstance().getSelectedProfessor().getName());
         }
         super.onDestroyView();
+    }
+
+    public void onStudentFabClicked(View view) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle("Add Student");
+        alert.setMessage("TODO, replace this with custom UI");
+
+        alert.setCancelable(true);
+        alert.show();
     }
 
     @SuppressLint("NotifyDataSetChanged")
