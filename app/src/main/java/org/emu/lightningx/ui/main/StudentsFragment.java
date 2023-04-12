@@ -94,12 +94,14 @@ public class StudentsFragment extends Fragment {
 
         datePicker.setOnClickListener(this::onDatePickerClick);
 
+        // Verify if we've previously selected a date
+        // If we haven't, then default to current local datetime
         if (GlobalStateService.getInstance().getSelectedDate().isEmpty()) {
             selectedDate.setText(GlobalUtil.getCurrentDateFormatted());
+            GlobalStateService.getInstance().setSelectedDate(GlobalUtil.getCurrentDateFormatted());
         } else {
             selectedDate.setText(GlobalStateService.getInstance().getSelectedDate());
         }
-        GlobalStateService.getInstance().setSelectedDate(GlobalUtil.getCurrentDateFormatted());
 
         Context context = view.getContext();
 
@@ -107,6 +109,7 @@ public class StudentsFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.createStudentFab);
         fab.setOnClickListener(this::onStudentFabClicked);
 
+        // Set layout and fill adapter
         if (mColumnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
         } else {
@@ -159,11 +162,8 @@ public class StudentsFragment extends Fragment {
             cal.set(Calendar.MONTH, Integer.parseInt(date[0]) - 1); // subtract once since calendar expected index at 0
             cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[1]));
 
-            long timeinMillis = cal.getTimeInMillis();
+            // Update the calendar selection for intuitive UX
             calendar.setDate(cal.getTimeInMillis(), false, true);
-
-            long newDate = calendar.getDate();
-            System.out.println(newDate);
         } catch (Exception ex) {
             Log.println(Log.ERROR, Constants.kAppName, "Failed to parse selected date with stack:\n" + ex);
         }
