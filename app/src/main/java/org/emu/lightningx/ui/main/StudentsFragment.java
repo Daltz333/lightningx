@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.emu.lightningx.R;
 import org.emu.lightningx.services.GlobalStateService;
 import org.emu.lightningx.services.StudentRetrieveService;
+import org.emu.lightningx.util.Constants;
+import org.emu.lightningx.util.GlobalUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 /**
  * A fragment representing a list of Items.
@@ -90,7 +94,12 @@ public class StudentsFragment extends Fragment {
 
         datePicker.setOnClickListener(this::onDatePickerClick);
 
-        selectedDate.setText(LocalDateTime.now().format(format));
+        if (GlobalStateService.getInstance().getSelectedDate().isEmpty()) {
+            selectedDate.setText(GlobalUtil.getCurrentDateFormatted());
+        } else {
+            selectedDate.setText(GlobalStateService.getInstance().getSelectedDate());
+        }
+        GlobalStateService.getInstance().setSelectedDate(GlobalUtil.getCurrentDateFormatted());
 
         Context context = view.getContext();
 
@@ -138,13 +147,29 @@ public class StudentsFragment extends Fragment {
 
         AlertDialog alertDialog = alert.show();
         CalendarView calendar = dialogView.findViewById(R.id.calendarView);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        LocalDate dateTime = LocalDate.parse(GlobalStateService.getInstance().getSelectedDate(), format);
+        try {
+            // Attempt to parse the string as a literal
+            String[] date = GlobalStateService.getInstance().getSelectedDate().split("/");
 
-        calendar.setDate(dateTime.toEpochDay());
+            // Bring into a calendar object to parse into millis since that's
+            // what the android CalendarView object expects
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, Integer.parseInt(date[2]));
+            cal.set(Calendar.MONTH, Integer.parseInt(date[0]) - 1); // subtract once since calendar expected index at 0
+            cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[1]));
+
+            long timeinMillis = cal.getTimeInMillis();
+            calendar.setDate(cal.getTimeInMillis(), false, true);
+
+            long newDate = calendar.getDate();
+            System.out.println(newDate);
+        } catch (Exception ex) {
+            Log.println(Log.ERROR, Constants.kAppName, "Failed to parse selected date with stack:\n" + ex);
+        }
+
         calendar.setOnDateChangeListener((view1, year, month, day) -> {
-            GlobalStateService.getInstance().setSelectedDate(LocalDate.ofEpochDay(view1.getDate()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+            GlobalStateService.getInstance().setSelectedDate((month + 1) + "/" + day + "/" + year); // add one for UI
             recyclerView.getAdapter().notifyDataSetChanged();
             alertDialog.dismiss();
         });
