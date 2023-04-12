@@ -1,5 +1,6 @@
 package org.emu.lightningx.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -22,7 +23,9 @@ import org.emu.lightningx.R;
 import org.emu.lightningx.services.GlobalStateService;
 import org.emu.lightningx.services.StudentRetrieveService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -36,6 +39,8 @@ public class StudentsFragment extends Fragment {
     private int mColumnCount = 2;
 
     private TextView selectedDate;
+
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -68,7 +73,7 @@ public class StudentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_list, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.studentRecyclerAdapter);
+        recyclerView = view.findViewById(R.id.studentRecyclerAdapter);
 
         if (getActivity() != null) {
             Toolbar toolbar = getActivity().findViewById(R.id.currentPageTitle);
@@ -106,6 +111,7 @@ public class StudentsFragment extends Fragment {
         super.onDestroyView();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void onDatePickerClick(View view) {
         // build calendar popup view
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
@@ -116,9 +122,14 @@ public class StudentsFragment extends Fragment {
 
         AlertDialog alertDialog = alert.show();
         CalendarView calendar = dialogView.findViewById(R.id.calendarView);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+        LocalDate dateTime = LocalDate.parse(GlobalStateService.getInstance().getSelectedDate(), format);
+
+        calendar.setDate(dateTime.toEpochDay());
         calendar.setOnDateChangeListener((view1, year, month, day) -> {
-            GlobalStateService.getInstance().setSelectedDate(month + "/" + day + "/" + year);
+            GlobalStateService.getInstance().setSelectedDate(LocalDate.ofEpochDay(view1.getDate()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+            recyclerView.getAdapter().notifyDataSetChanged();
             alertDialog.dismiss();
         });
 

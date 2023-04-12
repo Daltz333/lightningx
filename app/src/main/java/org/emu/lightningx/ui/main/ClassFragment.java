@@ -3,7 +3,6 @@ package org.emu.lightningx.ui.main;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,25 +10,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.emu.lightningx.R;
 import org.emu.lightningx.models.ClassModel;
-import org.emu.lightningx.placeholder.PlaceholderContent;
 import org.emu.lightningx.services.GlobalStateService;
 import org.emu.lightningx.util.GlobalUtil;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 
 /**
@@ -92,7 +85,7 @@ public class ClassFragment extends Fragment {
                     .getSelectedProfessor().getClasses(), context));
         }
 
-        FloatingActionButton fab = view.findViewById(R.id.createClassFab);
+        FloatingActionButton fab = view.findViewById(R.id.createStudentFab);
         fab.setOnClickListener(view1 -> onClassCreationButtonPressed());
 
         return view;

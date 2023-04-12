@@ -59,4 +59,19 @@
             app:layout_constraintVertical_bias="0.476" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createStudentFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:backgroundTint="@color/yellow_200"
+        android:clickable="true"
+        android:contentDescription="Add Class Button"
+        android:src="@drawable/plus_dark"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/dark_gray" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
