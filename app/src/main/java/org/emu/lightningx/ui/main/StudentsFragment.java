@@ -1,11 +1,17 @@
 package org.emu.lightningx.ui.main;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -13,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +37,7 @@ import org.emu.lightningx.services.StudentRetrieveService;
 import org.emu.lightningx.util.Constants;
 import org.emu.lightningx.util.GlobalUtil;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -40,6 +48,16 @@ import java.util.Calendar;
  * A fragment representing a list of Items.
  */
 public class StudentsFragment extends Fragment {
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK
+                        && result.getData() != null) {
+
+                    Uri image = result.getData().getData();
+                }
+            }
+    );
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -155,8 +173,10 @@ public class StudentsFragment extends Fragment {
         alert.show();
     }
 
+    @SuppressWarnings("deprecation")
     public void onImagePickerClick(View view) {
-
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        launcher.launch(intent);
     }
 
     @SuppressLint("NotifyDataSetChanged")
