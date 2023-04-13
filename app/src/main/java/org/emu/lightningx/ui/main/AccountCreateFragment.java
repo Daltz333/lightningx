@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import org.emu.lightningx.R;
 import org.emu.lightningx.models.ProfessorModel;
+import org.emu.lightningx.services.DatabaseService;
 import org.emu.lightningx.services.GlobalStateService;
 
 /**
@@ -97,6 +98,9 @@ public class AccountCreateFragment extends Fragment {
                 ProfessorModel professor = new ProfessorModel();
                 professor.setName(name);
                 professor.setUuid(id);
+
+                // Add new professor to the database
+                DatabaseService.getInstance().insertProfessor(professor);
 
                 // Set the selected professor
                 GlobalStateService.getInstance().setSelectedProfessor(professor);

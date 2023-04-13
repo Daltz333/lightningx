@@ -16,7 +16,7 @@ import org.emu.lightningx.models.ProfessorModel;
  */
 public class DatabaseService extends SQLiteOpenHelper {
     private static final String DB_NAME = "pf_db.db";
-    private static final int DB_VER = 1;
+    private static final int DB_VER = 2;
 
     private static DatabaseService instance = null;
 
@@ -33,8 +33,6 @@ public class DatabaseService extends SQLiteOpenHelper {
      */
     public static void initDatabase(Context context) {
         instance = new DatabaseService(context);
-
-        instance.insertProfessor();
     }
 
     /**
@@ -61,21 +59,28 @@ public class DatabaseService extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         Log.println(Log.INFO, this.getClass().getSimpleName(), "Creating SQLite database...");
 
-        sqLiteDatabase.execSQL("CREATE TABLE Professor(uuid INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(255));");
+        sqLiteDatabase.execSQL("CREATE TABLE Professor(uuid INTEGER, name varchar(255));");
+        sqLiteDatabase.execSQL("CREATE TABLE Class(uuid Integer PRIMARY KEY AUTOINCREMENT, name varchar(255));");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         Log.println(Log.INFO, this.getClass().getSimpleName(), "New database version specified and old exists, upgrading...");
+
+        try {
+            sqLiteDatabase.execSQL("DROP TABLE Professor");
+            sqLiteDatabase.execSQL("DROP TABLE Class");
+        } catch (Exception ignore) {}
+
+        onCreate(sqLiteDatabase);
     }
 
     public boolean insertProfessor(ProfessorModel prof) {
         try {
             // ADD NEW PROFESSOR TO TABLE
             String addNewProfessor = kAddNewProfessor.replace("$",
-                    "\'" +
-                            prof.getUuid() + "\'," +
-                            prof.getName() + "\'");
+                            prof.getUuid() + "\",\"" +
+                            prof.getName());
 
 
             db.execSQL(addNewProfessor);
@@ -112,7 +117,7 @@ public class DatabaseService extends SQLiteOpenHelper {
 
     // SQL QUERIES
     private static final String kDatabaseCreateQuery = "";
-    private static final String kAddNewProfessor = "INSERT INTO Professor (name) VALUES (\"$\");";
+    private static final String kAddNewProfessor = "INSERT INTO Professor (uuid, name) VALUES (\"$\");";
     private static final String kGetNewUuid = "SELECT * FROM Professor WHERE BLAH"; // GET ROW
     private static final String kUpdateProfessor = "";
 
