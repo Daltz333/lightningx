@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
@@ -135,6 +136,13 @@ public class StudentsFragment extends Fragment {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         View dialogView = new StudentCreatePopupFragment().onCreateView(getLayoutInflater(), null, null);
 
+        if (dialogView != null) {
+            Button imagePicker = dialogView.findViewById(R.id.studentCreateImagePicker);
+            imagePicker.setOnClickListener(this::onImagePickerClick);
+
+            Log.println(Log.WARN, Constants.kAppName, "Dialog View for Student Create Popup is null!!!");
+        }
+
         alert.setTitle("Add Student");
         alert.setView(dialogView);
 
@@ -145,6 +153,10 @@ public class StudentsFragment extends Fragment {
         alert.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
 
         alert.show();
+    }
+
+    public void onImagePickerClick(View view) {
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
