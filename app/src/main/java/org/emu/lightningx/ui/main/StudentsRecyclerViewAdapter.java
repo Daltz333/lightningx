@@ -84,6 +84,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
         }
 
         public void updateCardColor(StudentModel student) {
+            // Update the card color of the student that just got pressed
             int color = GlobalStateService.getInstance().
                     getSelectedClass().
                     isStudentPresent(student, GlobalStateService.getInstance()

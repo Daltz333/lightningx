@@ -132,11 +132,14 @@ public class StudentsFragment extends Fragment {
 
     public void onStudentFabClicked(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        View dialogView = new StudentCreatePopupFragment().onCreateView(getLayoutInflater(), null, null);
+
         alert.setTitle("Add Student");
-        alert.setMessage("TODO, replace this with custom UI");
+        alert.setView(dialogView);
 
         alert.setCancelable(true);
-        alert.show();
+
+        AlertDialog alertDialog = alert.show();
     }
 
     @SuppressLint("NotifyDataSetChanged")
