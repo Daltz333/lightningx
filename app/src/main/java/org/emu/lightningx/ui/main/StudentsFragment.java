@@ -3,6 +3,7 @@ package org.emu.lightningx.ui.main;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -139,7 +140,11 @@ public class StudentsFragment extends Fragment {
 
         alert.setCancelable(true);
 
-        AlertDialog alertDialog = alert.show();
+        // Add buttons to bottom of popup
+        alert.setPositiveButton("Add", (dialogInterface, i) -> dialogInterface.dismiss());
+        alert.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+
+        alert.show();
     }
 
     @SuppressLint("NotifyDataSetChanged")

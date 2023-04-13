@@ -9,7 +9,7 @@
         android:id="@+id/studentCreatePopupLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="25dp"
+        android:layout_margin="15dp"
         android:orientation="vertical">
 
         <EditText
@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Student ID"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/studentNameEntry"
