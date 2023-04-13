@@ -149,6 +149,10 @@ public class ClassModel {
         students.remove(student);
     }
 
+    public ArrayList<StudentModel> getStudents() {
+        return students;
+    }
+
     /**
      * Retrieve whether or not this class is currently selected in the UI
      * @return

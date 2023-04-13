@@ -30,6 +30,14 @@
             android:inputType="textPersonName"
             tools:ignore="TouchTargetSizeCheck" />
 
+        <TextView
+            android:id="@+id/imageSelectedStatusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#3D5AFE"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/studentCreateImagePicker"
             android:layout_width="match_parent"

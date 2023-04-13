@@ -4,16 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,15 +29,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.emu.lightningx.R;
+import org.emu.lightningx.models.StudentModel;
 import org.emu.lightningx.services.GlobalStateService;
-import org.emu.lightningx.services.StudentRetrieveService;
 import org.emu.lightningx.util.Constants;
 import org.emu.lightningx.util.GlobalUtil;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
@@ -54,10 +47,12 @@ public class StudentsFragment extends Fragment {
                 if (result.getResultCode() == Activity.RESULT_OK
                         && result.getData() != null) {
 
-                    Uri image = result.getData().getData();
+                    selectedImage = result.getData().getData();
                 }
             }
     );
+
+    private Uri selectedImage;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -135,7 +130,7 @@ public class StudentsFragment extends Fragment {
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        recyclerView.setAdapter(new StudentsRecyclerViewAdapter(StudentRetrieveService.instance.getStudents()));
+        recyclerView.setAdapter(new StudentsRecyclerViewAdapter(GlobalStateService.getInstance().getSelectedClass().getStudents()));
 
         return view;
     }
@@ -167,10 +162,28 @@ public class StudentsFragment extends Fragment {
         alert.setCancelable(true);
 
         // Add buttons to bottom of popup
-        alert.setPositiveButton("Add", (dialogInterface, i) -> dialogInterface.dismiss());
+        alert.setPositiveButton("Add", ((dialogInterface, i) -> createStudent(dialogView)));
         alert.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
 
         alert.show();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void createStudent(View alertView) {
+        String studentEntry = ((TextView)alertView.findViewById(R.id.studentNameEntry)).getText().toString();
+        String studentUuid = ((TextView)alertView.findViewById(R.id.studentUuidEntry)).getText().toString();
+
+        StudentModel student = new StudentModel(studentEntry, studentUuid);
+
+        if (selectedImage != null) {
+            student.setStudentProfileUriPath(selectedImage.toString());
+        }
+
+        GlobalStateService.getInstance()
+                .getSelectedClass()
+                .addStudent(student);
+
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     @SuppressWarnings("deprecation")

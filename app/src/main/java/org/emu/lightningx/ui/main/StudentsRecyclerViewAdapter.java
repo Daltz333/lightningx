@@ -42,7 +42,10 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter<StudentsRe
         holder.mNameView.setText(mStudents.get(position).studentName);
 
         holder.updateCardColor(holder.mStudent);
-        holder.mImageView.setImageResource(mStudents.get(position).studentProfileUriPath);
+
+        try {
+            holder.mImageView.setImageURI(Uri.parse(mStudents.get(position).getStudentProfileUriPath()));
+        } catch (Exception ignored) {}
     }
 
     @Override
