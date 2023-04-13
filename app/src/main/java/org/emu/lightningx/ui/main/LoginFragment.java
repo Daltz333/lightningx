@@ -131,9 +131,6 @@ public class LoginFragment extends Fragment {
         Activity activity = getActivity();
 
         if (activity != null) {
-            Toolbar pageTitle = root_view.findViewById(R.id.currentPageTitle);
-            pageTitle.setTitle(professor.getName() + " - " + professor.getUuid());
-
             activity.setContentView(root_view);
         } else {
             Log.println(Log.WARN, root.getResources().getString(R.id.applicationName), "Failed to set device root, as activity is null!");

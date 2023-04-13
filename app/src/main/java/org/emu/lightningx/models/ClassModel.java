@@ -8,6 +8,7 @@ import org.emu.lightningx.util.GlobalUtil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ClassModel {
     // Represents whether or not the current instance of this class is selected in the UI
@@ -23,7 +24,9 @@ public class ClassModel {
     // Date that the class was created
     private String classCreationDate;
 
-    private int uuid = -1;
+    private Random random = new Random();
+
+    private int uuid;
 
     private ArrayList<AttendanceDateModel> attendanceDates;
 
@@ -32,6 +35,7 @@ public class ClassModel {
         classCreationDate = GlobalUtil.getCurrentDateFormatted();
 
         this.name = name;
+        this.uuid = random.nextInt();
     }
 
     /**
