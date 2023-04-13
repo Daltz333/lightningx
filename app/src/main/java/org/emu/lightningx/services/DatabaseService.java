@@ -69,12 +69,16 @@ public class DatabaseService extends SQLiteOpenHelper {
         Log.println(Log.INFO, this.getClass().getSimpleName(), "New database version specified and old exists, upgrading...");
     }
 
-    public boolean insertProfessor() {
+    public boolean insertProfessor(ProfessorModel prof) {
         try {
             // ADD NEW PROFESSOR TO TABLE
-            SQLiteStatement statement = db.compileStatement(kAddNewProfessor);
-            statement.executeInsert();
+            String addNewProfessor = kAddNewProfessor.replace("$",
+                    "\'" +
+                            prof.getUuid() + "\'," +
+                            prof.getName() + "\'");
 
+
+            db.execSQL(addNewProfessor);
             return true;
         } catch (SQLException ex) {
             Log.println(Log.WARN, "LightningX", ex.getMessage());
@@ -108,7 +112,7 @@ public class DatabaseService extends SQLiteOpenHelper {
 
     // SQL QUERIES
     private static final String kDatabaseCreateQuery = "";
-    private static final String kAddNewProfessor = "INSERT INTO Professor (name) VALUES (\"JOHN\");";
+    private static final String kAddNewProfessor = "INSERT INTO Professor (name) VALUES (\"$\");";
     private static final String kGetNewUuid = "SELECT * FROM Professor WHERE BLAH"; // GET ROW
     private static final String kUpdateProfessor = "";
 

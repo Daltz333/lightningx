@@ -58,4 +58,22 @@ public class ProfessorModel {
     public ArrayList<ClassModel> getClasses() {
         return classes;
     }
+
+    /**
+     * Gets the list of classes associated with this professor as a comma separated list of uuids
+     * This is used for database lookups
+     * @return
+     */
+    public String getClassesAsCommaUuidList() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < classes.size(); i++) {
+            if (i != classes.size() - 1) {
+                builder.append(classes.get(i)).append(",");
+            } else {
+                builder.append(classes.get(i));
+            }
+        }
+
+        return builder.toString();
+    }
 }

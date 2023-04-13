@@ -1,5 +1,7 @@
 package org.emu.lightningx.models;
 
+import androidx.annotation.Nullable;
+
 import org.emu.lightningx.services.GlobalStateService;
 import org.emu.lightningx.util.GlobalUtil;
 
@@ -21,7 +23,7 @@ public class ClassModel {
     // Date that the class was created
     private String classCreationDate;
 
-    private int uuid;
+    private int uuid = -1;
 
     private ArrayList<AttendanceDateModel> attendanceDates;
 
@@ -168,5 +170,18 @@ public class ClassModel {
      */
     public void setIsSelected(boolean state) {
         isSelected = state;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        // Override equals function to compare on object contents
+        if (obj instanceof ClassModel) {
+            ClassModel class1 = (ClassModel) obj;
+
+            return class1.getName().equals(name)
+                    && class1.getUuid() == uuid;
+        }
+
+        return false;
     }
 }
