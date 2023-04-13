@@ -98,8 +98,10 @@ public class LoginFragment extends Fragment {
                 Log.println(Log.INFO, this.getClass().getSimpleName(), "User entered an invalid UUID!");
             }
 
-            if (DatabaseService.getInstance().doesUserExist(realUuid)) {
-                professor = new ProfessorModel();
+            ProfessorModel dbProf = DatabaseService.getInstance().getProfessor(realUuid);
+
+            if (dbProf != null) {
+                professor = dbProf;
                 userLoggedIn(professor, inflater, root);
 
             } else {

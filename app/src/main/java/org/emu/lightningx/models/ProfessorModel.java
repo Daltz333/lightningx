@@ -1,5 +1,7 @@
 package org.emu.lightningx.models;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
 public class ProfessorModel {
@@ -75,5 +77,17 @@ public class ProfessorModel {
         }
 
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof ProfessorModel) {
+            ProfessorModel realObj = (ProfessorModel) obj;
+
+            return realObj.getName().equals(name)
+                    && realObj.getUuid() == uuid;
+        } else {
+            return false;
+        }
     }
 }

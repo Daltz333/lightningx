@@ -2,6 +2,7 @@ package org.emu.lightningx.services;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,6 +10,7 @@ import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 import org.emu.lightningx.models.ProfessorModel;
+import org.emu.lightningx.util.Constants;
 
 /**
  * This class should does raw database access
@@ -93,7 +95,6 @@ public class DatabaseService extends SQLiteOpenHelper {
 
     public ProfessorModel getProfessor(int uuid) {
         try {
-            // GET THE UUID BASED ON ROW NUMBER
             SQLiteStatement getUuid = db.compileStatement("SELECT * FROM Professor");
 
             Cursor result = db.rawQuery("SELECT * FROM Professor WHERE uuid=?", new String[] {String.valueOf(uuid)});
@@ -110,7 +111,10 @@ public class DatabaseService extends SQLiteOpenHelper {
 
             return professor;
         } catch (SQLException ex) {
-            Log.println(Log.WARN, "LightningX", ex.getMessage());
+            Log.println(Log.WARN, Constants.kAppName, ex.getMessage());
+            return null;
+        } catch (CursorIndexOutOfBoundsException ex) {
+            Log.println(Log.WARN, Constants.kAppName, "UUID does not exist in DB: " + uuid);
             return null;
         }
     }
